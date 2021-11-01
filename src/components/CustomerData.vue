@@ -1,5 +1,8 @@
 <template>
     <div class="container customer-data">
+        <div class="search-wrapper">
+           Search <input v-model="searchQuery" placeholder="Name">
+        </div>
       <table class="table table-striped table-bordered">
          <thead>
             <tr>
@@ -14,7 +17,7 @@
            </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" v-bind:key="user.id"> 
+          <tr v-for="user in resultQuery" v-bind:key="user.id"> 
             <td>{{ user.name | uppercase}} </td> 
             <td>{{ user.username }} </td> 
             <td>{{ user.email}} </td> 
@@ -55,15 +58,36 @@ export default {
     return {
       users: [],
       isModalVisible: false,
-      modalData: Object
+      modalData: Object,
+      searchQuery: null
     };
+  },
+  computed: {
+    resultQuery() {
+      if (this.searchQuery) {
+        return this.users.filter(item => {
+          return this.searchQuery
+            .toLowerCase()
+            .split(" ")
+            .every(v => item.name.toLowerCase().includes(v) || item.username.toLowerCase().includes(v) || item.address.street.toLowerCase().includes(v));
+        });
+      } else {
+        return this.users;
+      }
+    }
   },
   filters: {
     uppercase: function(value) {
       return value.toUpperCase();
     },
-    sanitizePhone: function(value){
-      return value.substring(value.indexOf('x') + 1);
+    sanitizePhone: function(phone){
+      //Sanitize if it contains extra info
+      if(phone.includes("x")){
+        return phone.substring(0, phone.indexOf('x'));
+      }
+      else{
+        return phone;
+      }
     },
   },
   methods: {
@@ -111,3 +135,29 @@ export default {
 
 
 </script>
+
+<style>
+.search-wrapper{
+  font-size: 24px;
+  color: rgba(0,0,0,.50);
+  top: 8px;
+  padding: 10px;
+}
+ .search-wrapper label {
+    position: absolute;
+    font-size: 12px;
+    color: rgba(0,0,0,.50);
+    top: 8px;
+    left: 12px;
+    z-index: -1;
+    transition: .15s all ease-in-out;
+  }
+ .search-wrapper input {
+    padding: 4px 12px;
+    color: rgba(0,0,0,.70);
+    border: 1px solid rgba(0,0,0,.12);
+    transition: .15s all ease-in-out;
+    background: white;
+  }
+</style>
+
