@@ -1,4 +1,5 @@
 <template>
+<!-- This modal displays individual user data -->
   <transition name="modal-fade">
     <div class="modal-backdrop">
       <div class="modal">

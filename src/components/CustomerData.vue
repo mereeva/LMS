@@ -1,4 +1,5 @@
 <template>
+<!-- Customer data listing page -->
     <div class="container customer-data">
         <div class="search-wrapper">
            Search <input v-model="searchQuery" placeholder="Name/UserName/Street Address">
@@ -35,6 +36,7 @@
         </tbody>
       </table>
 
+      <!-- Calls user Modal with modalData passed to it -->
       <UserModal :userData=modalData
       v-show="isModalVisible"
       @close="closeModal"
@@ -111,6 +113,7 @@ export default {
       return user.company.name;
     },
     async onDelete(id){
+      //Delete function removes the element from the table and the state does not persist as an API will have to be written to delete data
        if(confirm("Are you sure?")){
         const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
           method:'DELETE'
@@ -123,7 +126,6 @@ export default {
       this.modalData = data;  
       console.log(this.modalData);  
       this.isModalVisible = true;
-
     },
     closeModal() {
       this.isModalVisible = false;
