@@ -1,18 +1,25 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <Header msg="Customer Profiles" />
+    <CustomerData  @delete-user="deleteUser" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Header from "./components/Header.vue";
+import CustomerData from "./components/CustomerData.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    Header,
+    CustomerData,
   },
+  data() {
+    return {
+      users: [],
+    }
+  }
 };
 </script>
 
@@ -25,4 +32,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>
