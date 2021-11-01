@@ -1,7 +1,7 @@
 <template>
     <div class="container customer-data">
         <div class="search-wrapper">
-           Search <input v-model="searchQuery" placeholder="Name/UserName/Address Street">
+           Search <input v-model="searchQuery" placeholder="Name/UserName/Street Address">
         </div>
       <table class="table table-striped table-bordered">
          <thead>
