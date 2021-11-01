@@ -1,7 +1,7 @@
 <template>
     <div class="container customer-data">
         <div class="search-wrapper">
-           Search <input v-model="searchQuery" placeholder="Name">
+           Search <input v-model="searchQuery" placeholder="Name/UserName/Address Street">
         </div>
       <table class="table table-striped table-bordered">
          <thead>
@@ -64,6 +64,7 @@ export default {
   },
   computed: {
     resultQuery() {
+      //Search user by name, username or Address
       if (this.searchQuery) {
         return this.users.filter(item => {
           return this.searchQuery
@@ -139,14 +140,13 @@ export default {
 <style>
 .search-wrapper{
   font-size: 24px;
-  color: rgba(0,0,0,.50);
   top: 8px;
   padding: 10px;
 }
  .search-wrapper label {
     position: absolute;
     font-size: 12px;
-    color: rgba(0,0,0,.50);
+    color: #000;
     top: 8px;
     left: 12px;
     z-index: -1;
@@ -158,6 +158,7 @@ export default {
     border: 1px solid rgba(0,0,0,.12);
     transition: .15s all ease-in-out;
     background: white;
+    width: 500px;
   }
 </style>
 
